@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        function generateUPIQR(upiId, amount) {
+            var upiString = `upi://pay?pa=${upiId}&pn=Test&am=${amount}&cu=INR`;
+            var qrcodeContainer = document.getElementById("qrcode");
+            qrcodeContainer.innerHTML = "";
+            new QRCode(qrcodeContainer, {
+                text: upiString,
+                width: 256,
+                height: 256
+            });
+        }
+    </script>
+    <link rel="stylesheet" href="/static/CSS/confirm_booking.css">
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/footer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,500,0,0&icon_names=swap_horiz" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="nav_bar" style="margin-bottom: 0px;">
+        <div class="comp_name">
+            <button class="company_name" id="theme-switch">
+                Bus Karro
+            </button>
+        </div>
+        <div class="nav_buttons">
+            <p class="search_button">
+                <a href="{% url  'Contact-Us' %}" class="Links">
+                    Contact
+                </a>
+            </p>
+            <div class="dropdown">
+                <p class="search_button dropdown-trigger">{{Username}}</p>
+                <div class="dropdown-menu">
+                    <p class="dropdown-item">{{Email}}</p>
+                    <p class="dropdown-item">{{Username}}</p>
+                    <a href="{% url 'Logout' %}" class="dropdown-item">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ticket">
+        <div class="ticket_info">
+            <div class="location">
+                <p class="location_text"><span class="loc1">{{From}}</span> TO <span class="loc2">{{To}}</span>
+                </p>
+            </div>
+            <div class="booking_details">
+                <p class="booking_title">Booking Details</p>
+                <p class="bus_number">Bus Number : <span class="bs_no">{{Bus_No}}</span></p>
+                <p class="bus_seat">Date : <span class="bt_sts">{{Date}}</span> &emsp; Time : <span class="bt_sts">{{Time}}</span> </p>
+                <p class="bus_seat_name">Seat Number :{% for i in selected_seats %}<span class="st_nme">{{i}} </span>{% endfor %} (Total No. of seats {{length}})</p>
+                <p class="total_amount">No. of Adults : <span class="ttl_amnt">{{Adults_No}}({{Cal_Adult}})</span> &emsp; No. of Childrens : <span class="ttl_amnt">{{child_No}}({{Cal_child}})</span></p>
+                <p class="total_amount">Total Amount : <span class="ttl_amnt">{{total_Price}}</span></p>
+            </div>
+        </div>
+        <div class="ticket_payment">
+            <div class="location">
+                <p class="location_text">Payment Details</p>
+            </div>
+            <div class="booking_details1">
+                <main class="page payment-page">
+                    <section class="payment-form dark">
+                      <div class="container">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="card-details">
+                                <h3 class="title">Credit Card Details</h3>
+                                <div class="row">
+                                    <div class="form-group col-sm-7">
+                                        <label for="card-holder">Name on the ticket</label>
+                                        <input id="card-holder" name="card_holder" type="text" class="form-control" placeholder="Amaan" aria-label="Card Holder" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="form-group col-sm-5">
+                                        <label for="">Expiration Date</label>
+                                        <div class="input-group expiration-date">
+                                            <input type="text" name="exp_month" class="form-control" placeholder="MM" aria-label="MM" aria-describedby="basic-addon1">
+                                            <span class="date-separator">/</span>
+                                            <input type="text" name="exp_year" class="form-control" placeholder="YY" aria-label="YY" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-8">
+                                        <label for="card-number">Card Number</label>
+                                        <input id="card-number" name="card_number" type="text" class="form-control" placeholder="Card Number" aria-label="Card Number" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="cvc">CVC</label>
+                                        <input id="cvc" name="cvc" type="text" class="form-control" placeholder="CVC" aria-label="CVC" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <button type="submit" class="btn btn-primary btn-block">Proceed</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                      </div>
+                    </section>
+                  </main>
+            </div>
+        </div>
+    </div>
+    {% if m1 %}
+        <div id="customAlert" class="alert-box1">
+            <p id="msg" class="det">{{msg}}</p>
+        </div>
+    {% endif %}
+    <script>
+        const alertBox = document.getElementById('customAlert');
+        if (alertBox) {
+            alertBox.style.display = 'flex';
+        }
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 2000); //2 sec
+    </script>
+</body>
+<script src="/static/JS/darkmode.js"></script>
+<script src="/static/JS/seat_selection.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</html>

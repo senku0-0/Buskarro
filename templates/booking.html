@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/static/CSS/booking.css">
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/footer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,500,0,0&icon_names=swap_horiz" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="nav_bar" style="margin-bottom: 0px;">
+        <div class="comp_name">
+            <button class="company_name" id="theme-switch">
+                Bus Karro
+            </button>
+        </div>
+        <div class="nav_buttons">
+            <p class="search_button">
+                <a href="contact.html" class="Links" style="margin-right: 10px;">
+                    Home
+                </a>
+                <a href="{% url 'Contact-Us' %}" class="Links">
+                    Contact
+                </a>
+            </p>
+            <div class="dropdown">
+                <p class="search_button dropdown-trigger">{{Username}}</p>
+                <div class="dropdown-menu">
+                    <p class="dropdown-item">{{Email}}</p>
+                    <p class="dropdown-item">{{Username}}</p>
+                    <a href="{% url 'Logout' %}" class="dropdown-item">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_contain">
+        <form action="" method="post">
+            {% csrf_token %}
+            <!-- {% csrf_token %} -->
+            <div class="ticket_payment">
+                <div class="location">
+                    <p class="location_text">Passenger Details</p>
+                </div>
+                <div class="booking_details1">
+                    <p class="pss_nme">(Use UP ARROW-KEY to Increase the value and DOWN ARROW-KEY to Decrease)</p>
+                    <p class="pss_nme">How many Adults?</p>
+                    <input type="number" name="Adults_No" class="inpt_field" value=0>
+                    <p class="pss_age">How many childer?</p>
+                    <input type="number" name="child_No" class="inpt_field" value=0>
+                    <input class="butt_on" type="submit" value="Continue">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script src="/static/JS/darkmode.js"></script>
+<script src="/static/JS/seat_selection.js"></script>
+
+</html>

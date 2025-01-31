@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/CSS/admin_panel.css">
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/footer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,500,0,0&icon_names=swap_horiz" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        .input-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .form_input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            border-radius: 11px;
+            margin-top: 5px;
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            color: black;
+        }
+
+        .results div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .results div:hover {
+            background: #f0f0f0;
+        }
+
+        .input-container:focus-within .results {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav_bar" style="margin-bottom: 0px;">
+        <div class="comp_name">
+            <button class="company_name" id="theme-switch">
+                Bus Karro
+            </button>
+        </div>
+        <div class="nav_buttons" style="justify-content: end;">
+            <div class="dropdown">
+                <a href="{% url "Logout" %}" class="dropdown-item" id="Logout">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="main_screen">
+        <div class="sidebar">
+            <div class="user_details">
+                <p class="user_name">{{Username}}</p>
+                <p class="user_email">{{Email}}</p>
+            </div>
+            <div class="sidebar_buttons">
+                <a href="{% url "Admin-Dashboard" %}" class="scheduled_bus">Today's Schedule</a>
+                <a href="{% url "Admin-Schedule-Bus" %}" class="schedule_bus">Schedule Bus</a>
+                <a href="{% url "Contact-Us" %}" class="contact_us">Contact Us</a>
+                <a href="{% url "Home" %}" class="user_panel">Home</a>
+            </div>
+        </div>
+        <div class="menu_screen">
+            <div class="heading_con">
+                <h1 class="con_heading">
+                    Scheduled Buses
+                </h1>
+            </div>
+            <div class="todays_schedule">
+                <table border="1">
+                    <tr>
+                        <th class="bus_no">
+                            Bus No.
+                        </th>
+                        <th class="driver">
+                            Driver
+                        </th>
+                        <th class="driver">
+                            Price
+                        </th>
+                        <th class="from_to">
+                            From - To
+                        </th>
+                        <th class="date">
+                            Date
+                        </th>
+                        <th class="date">
+                            Time
+                        </th>
+                        <th class="passengerr">
+                            Total Seats
+                        </th>
+                        <th class="passengerr">
+                            Booked Seats
+                        </th>
+                        </th>
+                        <th class="passengerr">
+                            Delete
+                        </th>
+                        <th class="passengerr">
+                            Edit
+                        </th>
+                    </tr>
+                    {% if all_scheduled %}
+                    {% for i in all_scheduled %}
+                    <tr>
+                        <form action="{% url "Delete" %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="Bus_No" value="{{ i.Bus_No }}">
+                        <input type="hidden" name="Date" value="{{ i.Date }}" >
+                        <td class="bus_no">{{ i.Bus_No }}</td>
+                        <td class="driver">{{ i.Driver_name }}</td>
+                        <td class="driver">{{ i.Price }}</td>
+                        <td class="from_to">{{ i.F }}-{{ i.T }}</td>
+                        <td class="date">{{ i.Date }}</td>
+                        <td class="date">{{ i.Time }}</td>
+                        <td class="date">{{i.Seats}}</td> 
+                        <td class="date">{{i.No_of_seats_booked}}</td>
+                        <td class="passengerr"><button class="dlt" >Delete</button></td>
+                        </form>
+                        <td class="passengerr"><button class="edt">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="10">
+                            <div class="upd_fix_con">
+                                <form action="{% url 'Update' %}" name="Update_schedule" method="post">
+                                    {% csrf_token %}
+                                    <div class="schedule_buses" id="edit_buses">
+                                        <div class="fix_con">
+                                            <input type="hidden" name="hBus_no" value="{{i.Bus_No}}">
+                                            <input type="hidden" name="hdate" value="{{i.Date}}">
+                                            <p class="form_head">
+                                                Bus No.
+                                            </p>
+                                            <input type="number" class="form_input" name="ebus_no" placeholder="Bus number" value="{{ i.Bus_No }}">
+                                            <div class="input-container">
+                                                <p class="form_head">
+                                                    From
+                                                </p>
+                                                <input type="text" class="form_input" placeholder="From" name="efrom" id="search-bar-from1" value="{{ i.F }}">
+                                                <div id="results-from1" class="results"></div>
+                                            </div>
+                                            <div class="input-container">
+                                                <p class="form_head">
+                                                    To
+                                                </p>
+                                                <input type="text" class="form_input" placeholder="To" name="eto" id="search-bar-to1" value="{{ i.T }}">
+                                                <div id="results-to1" class="results"></div>
+                                            </div>
+                                            <p class="form_head1">
+                                                Driver Name
+                                            </p>
+                                            <input type="text" class="form_input" placeholder="Driver Name" name="eDriver_name" value="{{ i.Driver_name }}">
+                                            <button class="form_button">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="10" class="date">There are NO buses scheduled</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+</body>
+<script src="/static/JS/darkmode.js"></script>
+<script src="/static/JS/search.js"></script>
+<script src="/static/JS/date.js"></script>
+<script src="/static/JS/table.js"></script>
+<script src="/static/JS/as_bug_fix.js"></script>
+<script src="/static/JS/edit_search.js"></script>
+
+</html>

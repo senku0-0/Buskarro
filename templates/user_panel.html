@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/static/CSS/user.css">
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/footer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,500,0,0&icon_names=swap_horiz" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="nav_bar" style="margin-bottom: 0px;">
+        <div class="comp_name">
+            <button class="company_name" id="theme-switch">
+                Bus Karro
+            </button>
+        </div>
+        <div class="nav_buttons">
+            <p class="search_button">
+                <a href="{% url  'Contact-Us' %}" class="Links">
+                    Contact
+                </a>
+            </p>
+            <div class="dropdown">
+                <p class="search_button dropdown-trigger">{{Username}}</p>
+                <div class="dropdown-menu">
+                    <p class="dropdown-item">{{Email}}</p>
+                    <p class="dropdown-item">{{Username}}</p>
+                    <a href="{% url 'Logout' %}" class="dropdown-item">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="location_date">
+        <div class="location">
+            <p class="location_txt">
+                {{F}}
+            </p>
+            <i class="fas fa-arrow-right"></i>
+            <p class="location_txt">
+                {{T}}
+            </p>
+        </div>
+        <div class="date">
+            <p class="date_txt">{{Date}}</p>
+        </div>
+        <div class="ld_btn">
+            <a href="{% url 'Home' %}" class="modifyy">Modify</a>
+        </div>
+    </div>
+    <div class="main_screen">
+        <div class="menu_screen">
+            {% if  data%}
+            <p class="buses_found"><span class="bolderr">{{result}} Buses</span> Found</p>
+            {% for i in data %}
+            <div class="booking_card">
+                <div class="starting_point">
+                    <div class="location">
+                        <p class="location_txt1">
+                            {{i.F}}
+                        </p>
+                        <p class="location_txt1">TO</p>
+                        <p class="location_txt1">
+                            {{i.T}}
+                        </p>
+                    </div>
+                </div>
+                <div class="details_con">
+                    <div class="info_con">
+                        <div class="bus_info">
+                            <div class="main_info">
+                                <p class="time">Time:- <span id="time">{{i.Time}}</span></p>
+                                <p class="bus_no">Bus No.:- <span id="bus_no">{{i.Bus_No}}</span></p>
+                                <p class="price">Price:- <span id="price">{{i.Price}}/Person</span> <br> Ticket price for childrens(only for below 15yrs):- <span id="price">{% widthratio i.Price 2 1 %}</span></p>
+                            </div>
+                            <div class="side_info">
+                                <p class="availability">Seats Available:- <span id="availability">0/36</span></p>
+                                <p class="availability">Driver Name:- <span id="availability">{{i.Driver_name}}</span></p>
+                                <!-- <p class="bus_type">Bus Type:- <span id="bus_type">yaha pe django db link karna</span> -->
+                                </p>
+                            </div>
+                        </div>
+                        <div class="view_seat">
+                            <button class="view_seat_btn">View Seat</button>
+                        </div>
+                    </div>
+                </div>
+                <form method="POST">
+                    <input type="hidden" name="Hidden_BusNO" value="{{i.Bus_No}}">
+                    <input type="hidden" name="Hidden_BusDate" value="{{Date}}">
+                    {% csrf_token %}
+                    <div class="seats">
+                        <div class="seat_map">
+                            <!-- Upper Berth Section -->
+                            <div class="upper_berth">
+                                <p class="berth_txt">Upper Berth</p>
+                                <div class="double">
+                                    <div class="map" id="U1">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U2">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U3">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U4">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U5">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U6">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U7">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U8">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U9">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U10">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U11">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U12">
+                                        <div class="pillow"></div>
+                                    </div>
+                                </div>
+                                <div class="single">
+                                    <div class="map" id="U13">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U14">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U15">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U16">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U17">
+                                        <div class="pillow"></div>
+                                    </div>
+                                    <div class="map" id="U18">
+                                        <div class="pillow"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Lower Berth Section -->
+                            <div class="lower_berth">
+                                <p class="berth_txt">Lower Berth</p>
+                                <div class="lower">
+                                    <div class="driver">
+                                        <p class="driver_txt">DRIVER</p>
+                                    </div>
+                                    <div class="bruh">
+                                        <div class="double">
+                                            <div class="map" id="L1">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L2">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L3">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L4">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L5">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L6">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L7">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L8">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L9">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L10">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L11">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L12">
+                                                <div class="pillow"></div>
+                                            </div>
+                                        </div>
+                                        <div class="single">
+                                            <div class="map" id="L13">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L14">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L15">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L16">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L17">
+                                                <div class="pillow"></div>
+                                            </div>
+                                            <div class="map" id="L18">
+                                                <div class="pillow"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="seat_legend">
+                            <p class="seat_lgnd">SEAT LEGEND</p>
+                            <div class="lgnd_icon">
+                                <div class="map available">
+                                    <div class="pillow"></div>
+                                </div>
+                                <p class="lgnd_txt">Available</p>
+                                <div class="map booked">
+                                    <div class="pillow"></div>
+                                </div>
+                                <p class="lgnd_txt">Booked</p>
+                            </div>
+                            <div class="st_txt">
+                                <p class="booking_policy">Booking Policy</p>
+                                <p class="policyy">This booking is non-refundable</p>
+                                <p class="policyy">This booking falls under the 100% cancellation charges window of the cancellation policy</p>
+                            </div>
+                            <div class="book_seat">
+                                <button class="confirm">Confirm Booking</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>                
+            </div>
+            {% endfor %}
+            {% else %}
+            <div style="width: auto; height: auto;"> 
+                <p style="font-size: 7vh; color: brown; text-align: center;">No Buses are Scheduled for this Date.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <script id="bookedData" type="application/json">
+        {{ booked|safe }}
+    </script>
+    <script src="/static/JS/seat_selection.js"></script>
+</body>
+<script src="/static/JS/darkmode.js"></script>
+<script src="/static/JS/search.js"></script>
+<script src="/static/JS/date.js"></script>
+<script src="/static/JS/table.js"></script>
+<script src="/static/JS/as_bug_fix.js"></script>
+<script src="/static/JS/edit_search.js"></script>
+<script src="/static/JS/seat_booking.js"></script>
+
+</html>

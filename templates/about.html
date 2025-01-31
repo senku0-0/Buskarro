@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/about.css">
+    <link rel="stylesheet" href="/static/CSS/footer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="nav_bar">
+        <div class="comp_name">
+            <button class="company_name" id="theme-switch">
+                Bus Karro
+            </button>
+        </div>
+        <div class="nav_buttons">
+            <p class="search_button">
+                <a href="{% url 'Home' %}" class="Links" style="margin-right: 10px;">
+                    Home
+                </a>
+                <a href="{% url 'Contact-Us' %}" class="Links">
+                    Contact
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="title">
+        <p class="title_text">
+            About Us
+        </p>
+    </div>
+    <div class="about_us">
+        <div class="about_div1">
+            <h1 class="about_title">
+                Mohd. Amaan Shaikh
+            </h1>
+            <p class="about_info">
+                The mastermind behind everything you See
+                <br>
+                <br>
+                Amaan Here !
+                <br>
+                <br>
+                Well I am not saying I am smart BUT I AM.
+                <br>
+                I always wanted to do cool things and I am quite creative.
+                <br>
+                Well sometimes I don't do anything besides playing games.
+                <br>
+                See ya..
+            </p>
+            <br>
+            <br>
+            <p class="about_info">
+                Yang
+            </p>
+        </div>
+        <div class="about_div2">
+            <h1 class="about_title" style="margin-bottom: 45px;">
+                Ashad Shaikh
+            </h1>
+            <p class="about_info">
+                The mastermind behind everything you dont see
+                <br>
+                <br>
+                Oi Ashad here!!!
+                <br>
+                <br>
+                So currently I handle backend !
+                <br>
+                so yea that's that nothing much to say but that's how it's gonna be.
+                <br>
+                <br>
+                I love innovation
+                <br>
+                Sayonara
+            </p>
+            <br>
+            <br>
+            <p class="about_info">
+                Yin
+            </p>
+        </div>
+    </div>
+    <div class="bus_about">
+        <div class="fit_con">
+            <h1 class="ba_title">
+                BUS KARRO
+            </h1>
+            <p class="ba_text">
+                Bus karro, over the years, has strived to deliver easy booking solutions to its customers. Our continued
+                efforts have resulted in Bus karro becoming one of the leading and top-rated bus booking platforms in
+                India for various Bus services. We have a strong presence with a ticket inventory from over 4000 bus
+                partners and 350000 route options on our app and website.
+                <br><br>
+                Founded in the year 2008, Bus karro is a pioneer in providing end-to-end software and other value-added
+                solutions such as e-ticketing systems, fleet management solutions, vehicle tracking systems, passenger
+                information systems, and logistics management backed by a 24x7 customer support center. The company also
+                provides technology solutions to more than 300 large private bus partners in India, 5 state transport
+                corporations, and 2 international bus partners.
+                <br><br>
+                Today, Bus karro proudly serves as the preferred Information Technology Partner for State Transport
+                Corporations and Private Bus Fleet Bus Partners. We take immense pride in being an ISO 9001:2008
+                certified company, reflecting our commitment to maintaining exceptional quality standards.
+            </p>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer_company_name">
+            <h1 class="footer_company_name_text">Bus Karro</h1>
+        </div>
+        <div class="footer_details">
+            <div class="footer_info1">
+                <p class="footer_company_topic">
+                    <bolder>About</bolder>
+                </p>
+                <a href="{% url 'Term-n-conditions' %}" class="links">
+                    <p class="links">Terms and Conditions</p>
+                </a>
+                <a href="{% url 'Policies'%}" class="links">
+                    <p class="links">Privacy Policy</p>
+                </a>
+                <a href="{% url 'Contact-Us' %}" class="links">
+                    <p class="links">Contact Us</p>
+                </a>
+                <a href="{% url 'Home' %}" class="links">
+                    <p class="links">Home</p>
+                </a>
+            </div>
+            <div class="footer_into2">
+                <p class="footer_topic">
+                    <bolder>Info</bolder>
+                </p>
+                <a href="{% url 'Blog' %}" class="links">
+                    <p class="links">Blog</p>
+                </a>
+                <a href="{% url 'User-Agreement' %}" class="links">
+                    <p class="links">User Agreement</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/static/JS/darkmode.js"></script>
+<script src="/static/JS/about.js"></script>
+
+</html>

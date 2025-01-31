@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Ticket</title>
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .ticket {
+            width: 600px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin: 0 auto;
+        }
+        .event-name {
+            font-size: 31.72px; /* Increased by 13% from the original size */
+            font-weight: bold;
+            color: #ff5722;
+            text-align: center;
+        }
+        .details {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 18.13px; /* Increased by 13% from the original size */
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .booking_title {
+            font-size: 23.46px; /* Increased by 13% from the original size */
+            font-weight: bold;
+            color: #ff5722;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ff5722;
+            display: inline-block;
+            padding-bottom: 5px;
+            text-align: center;
+            width: 100%;
+        }
+        .label {
+            font-weight: bold;
+            color: #333;
+            font-size: 19.94px; /* Increased by 10% from the current size */
+        }
+        .center-text {
+            text-align: center;
+            color: gray;
+            font-size: 19.94px; /* Increased by 10% from the current size */
+        }
+        .important {
+            font-size: 21.93px; /* Increased by 10% from the current size */
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <p>
+            <span class="event-name">BusKarro</span><br><br>
+            <span class="important">Date:</span> <span class="label">{{Date}}</span><br><br>
+            <span class="important">From:</span> <span class="label from">{{From}}</span> &emsp; <span class="important">To:</span> <span class="label to">{{To}}</span><br><br>
+            <span class="important">Ticket Holder:</span> <span class="label">{{Name}}</span><br><br>
+            <span class="booking_title">Booking Details</span><br><br>
+            <span class="important">Bus Number:</span> <span class="label bs_no">{{Bus_No}}</span><br><br>
+            <span class="important">Date:</span> <span class="label">{{Date}}</span> &emsp; <span class="important">Time:</span> <span class="label">{{Time}}</span><br><br>
+            <span class="important">Seat Number:</span> {% for i in selected_seats %}<span class="label st_nme">{{ i }}</span> {% endfor %} (Total No. of seats: {{ length }})<br><br>
+            <span class="important">No. of Adults:</span> <span class="label ttl_amnt">{{Adults_No}} ({{Cal_Adult}})</span> &emsp; <span class="important">No. of Children:</span> <span class="label ttl_amnt">{{child_No}} ({{Cal_child}})</span><br><br>
+            <span class="important">Total Amount:</span> <span class="label ttl_amnt">{{total_Price}}</span><br><br>
+            <strong>Booking Policy:</strong><br>
+            This booking is non-refundable.<br>
+            This booking falls under the 100% cancellation charges window of the cancellation policy.<br><br>
+            Please make sure to carry a valid ID proof during your journey.<br>
+            Arrive at the boarding point at least 15 minutes before the departure time.<br>
+            Ensure that your contact details are updated to receive timely notifications.<br><br>
+            <span class="center-text">Happy Journey!</span>
+        </p>
+    </div>
+</body>
+</html>

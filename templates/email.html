@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Bus Trip Ticket</title>
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 600px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ff5722;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #ff5722;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        .content p {
+            font-size: 16px;
+            color: #333;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff5722;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Your Bus Trip Ticket</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{Name}},</p>
+            <p>We are delighted to welcome you on board for an exciting journey! Your bus trip on <strong>{{Date}}</strong> promises to be a memorable adventure.</p>
+            <p>Your journey begins from <strong>{{ From }}</strong> and takes you to <strong>{{ To }}</strong>. Here are your travel details:</p>
+            <ul>
+                <li><strong>Bus Number:</strong> {{ Bus_No }}</li>
+                <li><strong>Date:</strong> {{ Date }} &emsp; <strong>Time:</strong> {{ Time }}</li>
+                <li><strong>Seat Number:</strong> {% for i in selected_seats %}<span class="st_nme">{{ i }} </span>{% endfor %} (Total No. of seats: {{ length }})</li>
+                <li><strong>No. of Adults:</strong> {{ Adults_No }} ({{ Cal_Adult }}) &emsp; <strong>No. of Children:</strong> {{ child_No }} ({{ Cal_child }})</li>
+                <li><strong>Total Amount:</strong> {{ total_Price }}</li>
+            </ul>
+            <p>As you travel across beautiful landscapes and scenic views, we aim to make your trip as comfortable and enjoyable as possible.</p>
+            <p>Please find your ticket attached below. We look forward to having you on board and hope you have an incredible journey!</p>
+        </div>
+        <div class="footer">
+            <p>Best regards,<br>The Travel Team</p>
+        </div>
+    </div>
+</body>
+</html>

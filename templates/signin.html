@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/signin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/CSS/Customalert.css">
+</head>
+
+<body>
+
+    <div class="nav_bar">
+        <div class="comp_name">
+            <button class="company_name" id="theme-switch">
+                Bus Karro
+            </button>
+        </div>
+        <div class="nav_buttons">
+            <p class="search_button">
+                <a href="{% url "Contact-Us" %}" class="Links">
+                    Contact
+                </a>
+            </p>
+            <a href="{% url "Registration" %}" class="Links">
+                <button class="sign_in_button">
+                    Register
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="login_con">
+        <div class="sub_container">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="un">
+                    <p class="user">Username</p>
+                    <input type="text" name="Username" class="username" id="myText" placeholder="Username" required>
+                </div>
+                <div class="pw">
+                    <p class="user">Password</p>
+                    <input type="password" name="Password" class="Password" id="myPass" placeholder="Password" required>
+                </div>
+                <div class="btnn">
+                    <input type="submit" class="submitbtn" id="mySubmit">
+                    <p class="terms">By clicking on Submit, you agree to our <a href="{% url 'Term-n-conditions' %}">Terms of
+                            Service</a> and <a href="{% url 'Policies' %}">Privacy Policy</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if m1 %}
+        <div id="customAlert" class="alert-box1">
+            <p id="msg" class="det">{{msg}}</p>
+        </div>
+    {% endif %}
+    {% if m %}
+    <div id="customAlert" class="alert-box">
+        <p id="msg" class="det">{{msg}}</p>
+    </div>
+    {% endif %}
+    <script>
+        const alertBox = document.getElementById('customAlert');
+        if (alertBox) {
+            alertBox.style.display = 'flex';
+        }
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 3000); //3 sec
+    </script>
+
+</body>
+<script src="/static/JS/darkmode.js"></script>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/registration.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="nav_bar">
+        <div class="comp_name">
+            <button class="company_name" id="theme-switch">
+                Bus Karro
+            </button>
+        </div>
+        <div class="nav_buttons">
+            <p class="search_button">
+                <a href="{% url 'Contact-Us' %}" class="Links">
+                    Contact
+                </a>
+            </p>
+            <a href="{% url 'Login' %}" class="Links">
+                <button class="sign_in_button">
+                    Sign in
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="title_con">
+        <h1 class="title">
+            Registration
+        </h1>
+    </div>
+
+    <div class="data_con">
+        <div class="why_con">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="namemail">
+                    <p class="user">Username</p>
+                    <input type="text" name="name" class="username" id="myText" placeholder="Username" required>
+                    <p class="user">Email</p>
+                    <input type="email" name="email" class="username" id="myText" placeholder="Email" required>
+                    <div class="buttons">
+                        <button class="nextt" id="Next">Next</button>
+                    </div>
+                </div>
+
+                <div class="passs">
+                    <p class="user">Password</p>
+                    <input type="password" class="Password" name="pass" id="password" placeholder="Password" required>
+                    <p class="user">Confirm Password</p>
+                    <input type="password" class="Password" name="Cpass" id="confirmPassword"
+                        placeholder="Confirm Password" required>
+                    <div class="show-password">
+                        <input type="checkbox" id="showPasswordToggle">
+                        <label for="showPasswordToggle">Show Password</label>
+                    </div>
+                    <div class="buttons">
+                        <button class="back" id="Back">Back</button>
+                        <button class="next" id="sub">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if m %}
+    <div id="customAlert" class="alert-box">
+        <p id="msg" class="det">{{msg}}</p>
+    </div>
+    {% endif %}
+    <script>
+        const alertBox = document.getElementById('customAlert');
+        if (alertBox) {
+            alertBox.style.display = 'flex';
+        }
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 3000); //3 sec
+    </script>
+</body>
+<script src="/static/JS/showpass.js"></script>
+<script src="/static/JS/register.js"></script>
+<script src="/static/JS/darkmode.js"></script>
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/contact.css">
+    <link rel="stylesheet" href="/static/CSS/footer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/CSS/Customalert.css">
+</head>
+
+<body>
+
+    <div class="nav_bar">
+        <div class="comp_name">
+            <button class="company_name" id="theme-switch">
+                Bus Karro
+            </button>
+        </div>
+        <div class="nav_buttons" style="justify-content: end;">
+            <p class="search_button">
+                <a href="{% url 'Home' %}" class="Links">
+                    Home
+                </a>
+            </p>
+        </div>
+        <script src="/static/JS/darkmode.js"></script>
+    </div>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="main_contact_container">
+            <div class="contact_us_forms">
+                <h1 class="container_head">
+                    Contact Us
+                </h1>
+                <p class="post_head">
+                    Your Experience is our Top Priority
+                </p>
+                <input placeholder="example@gmail.com" class="full_name" name="email" type="text">
+                <br />
+                <!-- <input placeholder="Email Address" class="email_address" name="Email" type="email"> -->
+                <br>
+                <textarea placeholder="Describe your Issue/quiry" rows="8" cols="45" name="msg"
+                    class="contact_reason"></textarea>
+                <br>
+                <button class="send_inquiry">Send a Message</button>
+            </div>
+            <div class="direct_contact_container">
+                <h1 class="reach_head">Reach Us Directly</h1>
+                <div class="our_email">
+                    <img src="https://www.svgrepo.com/show/468759/email-file-text.svg" alt="" class="d_img">
+                    <div class="texts">
+                        <p class="details_head">Our email Address</p>
+                        <p class="details_text">Buskarro@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="footer">
+        <div class="footer_company_name">
+            <h1 class="footer_company_name_text">Bus Karro</h1>
+        </div>
+        <div class="footer_details">
+            <div class="footer_info1">
+                <p class="footer_company_topic">
+                    <bolder>About</bolder>
+                </p>
+                <a href="{% url 'About-us' %}" class="links">
+                    <p class="links">About us</p>
+                </a>
+                <a href="{% url 'Term-n-conditions' %}" class="links">
+                    <p class="links">Terms and Conditions</p>
+                </a>
+                <a href="{% url 'Policies'%}" class="links">
+                    <p class="links">Privacy Policy</p>
+                </a>
+                <a href="{% url 'Home' %}" class="links">
+                    <p class="links">Home</p>
+                </a>
+            </div>
+            <div class="footer_into2">
+                <p class="footer_topic">
+                    <bolder>Info</bolder>
+                </p>
+                <a href="{% url 'Blog' %}" class="links">
+                    <p class="links">Blog</p>
+                </a>
+                <a href="{% url 'User-Agreement' %}" class="links">
+                    <p class="links">User Agreement</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if m1 %}
+    <div id="customAlert" class="alert-box1">
+        <p id="msg" class="det">{{msg}}</p>
+    </div>
+    {% endif %}
+    <script>
+        const alertBox = document.getElementById('customAlert');
+        if (alertBox) {
+            alertBox.style.display = 'flex';
+        }
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 3000); //3 sec
+    </script>
+</body>
+
+</html>
