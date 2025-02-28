@@ -1,0 +1,174 @@
+class Validate:
+    def check_password(login_password, hashed_password):
+        login_password_bytes = login_password.encode('utf-8')
+        if isinstance(hashed_password, str):
+            hashed_password_bytes = hashed_password.encode('utf-8')
+        else:
+            hashed_password_bytes = hashed_password
+        is_correct = bcrypt.checkpw(login_password_bytes, hashed_password_bytes)
+        return is_correct
+
+    def hash_passcode(self,Password):
+        value = Password.encode('utf-8')
+        hash_password = bcrypt.hashpw(value, bcrypt.gensalt(rounds=12))
+        print(hash_password)
+        return(hash_password)
+    
+    def Reg_Validating(self, Username, Email, Password, CPassword ,auth):
+        special_char = """!@#$%^&*()[{]},<>:;"'|/-"""
+        if Password == CPassword:
+            print(len(Password))
+            if len(Password) < 8:
+                return True, "Minimum 8 characters"
+            elif Registration.objects.filter(Username=Username).exists():
+                return True , "Username already exists"
+            elif any(a in special_char for a in Username):
+                return True , 'Username cannot contain special character besides "." "_"'
+            elif Registration.objects.filter(Email=Email).exists():
+                return True , 'Email already registered here'
+            else:
+                code = self.hash_passcode(Password)
+                reg_data = Registration.objects.create(Username=Username, Email=Email, Password=code,auth =auth)
+                reg_data.save()
+                return False, "Registration Sucessfull"
+        else:
+            return True, 'Password didn\'t match'
+
+    @staticmethod   
+    def Log_validate(Username, login_Password):
+        user = Registration.objects.filter(Username = Username).first()
+        if user:
+            if Validate.check_password(login_Password,user.Password):
+                if user.auth == 'User':
+                    return False,'Welcome User'
+                elif user.auth == 'Admin':
+                    return False,'Welcome Admin'
+            else:
+                return True, "Password is Invalid"
+        else:
+            return True,"Username is Invalid"
+
+# This class validate the data that comes from the registration and login page.
+Checking the data that was provided by the user was correct or not.
+This class has 4 function/method one is for registration validate data and second 
+one is for login page and the other two are for the hashing the password and decoding the hash password.
+
+class User_Reg(APIView):
+
+    def get(self, request):
+        return render(request, 'registration.html')
+    
+    def post(self, request):
+        Username = request.POST.get('name')
+        Email = request.POST.get('email')
+        Password = request.POST.get('pass')
+        CPassword = request.POST.get('Cpass')
+        auth = 'User'
+        reg = Validate()
+        valid,msg = reg.Reg_Validating(Username, Email, Password, CPassword,auth)
+        if valid: 
+            return render(request,'registration.html',{'msg':msg,'m':True})
+        if msg == "Registration Sucessfull": 
+            success = urlencode({
+                'msg': 'Registration Sucessfull', 
+                'm1': True,
+            })
+            return redirect(f'/?{success}')
+
+# lgoin api
+class Log(APIView):
+    def get(self,request):
+        m1 = request.GET.get('m1')
+        msg = request.GET.get('msg')
+        if m1 and msg:
+            return render(request,'signin.html',{'m1':m1,'msg':msg})
+        return verify(request,m1,msg,secret_key)
+
+    def post(self,request):
+        Username = request.POST.get('Username')
+        login_Password = request.POST.get('Password')
+        user = Registration.objects.filter(Username = Username).first()
+        valid,msg = Validate.Log_validate(Username,login_Password)
+        if valid:
+            return render(request,'signin.html',{'msg':msg,'m':True})
+        res = HttpResponse() 
+        token = create_JWT(Username, user.Email, user.auth,secret_key) 
+        if msg == 'Welcome Admin':
+            res = redirect('Admin-Dashboard') 
+            res.set_cookie('Authorization', token, max_age=300, httponly=True,secure=True) 
+            return res
+        elif msg == 'Welcome User':
+            res = redirect('Home') 
+            res.set_cookie('Authorization', token, max_age=300, httponly=True,secure=True) 
+            return res
+
+# Now this two classes are used for registration and login respectively. They take the data from
+the user and send the data to the Validate class for checking the data.
+
+class Theory:
+    def TNC(self,request):
+        return render(request,'tnc.html')  
+    def Policies(self,request):
+        return render(request,'policies.html') 
+    def Blog(self,request):
+        return render(request,'blog.html') 
+    def User_Agreement(self,request):
+        return render(request,'user_agreement.html')  
+    def about(self,request):
+        token = request.COOKIES.get('Authorization')
+        if token:
+            valid,refreshed = refresh_Token(token,secret_key)
+            res = render(request,'about.html') 
+            if valid:
+                res.set_cookie("Authorization", refreshed , max_age=4*7*24*60*60, httponly=True, secure=True)  # weeks * days * hours * minutes * seconds 
+                return res
+            else:
+                return res
+        else:
+            return redirect('Login')
+
+#This class holds 5 function/method which are used for rendering 5 different pages.
+There is 5 differenet pages in one class because they don't have any specific use they are 
+just for making it look more appeling to the user. 
+
+class Logout:
+    def logout(self,request):
+        res = redirect('Login')
+        res.delete_cookie('Authorization')
+        return res
+
+#It's a class that hold one function that is just for deleting cookie and redirecting 
+user to the login page 
+
+class Admin_TodayScheduled(APIView):
+    def Scheduled(self,request,token):
+        self.delete_expiredBus()
+        CD = datetime.now().strftime("%Y-%m-%d")
+        tok = decode(token,secret_key)
+        user_info = {
+            'Username':tok.get('Username'),
+            'Email':tok.get('Email'),
+        }
+        info = {
+            'today_scheduled': Scheduled_buses.objects.all().filter(Date = CD),
+            **user_info
+        }
+        return render(request,'admin_panel.html',info)
+    
+    def get(self,request):
+        token = request.COOKIES.get('Authorization')
+        if token:
+            valid,refreshed = refresh_Token(token,secret_key)
+            res = self.Scheduled(request,token)
+            if valid:
+                res.set_cookie("Authorization", refreshed , max_age=4*7*24*60*60, httponly=True, secure=True)  # weeks * days * hours * minutes * seconds 
+                return res
+            else:
+                return res
+        else:
+            return redirect('Login')
+
+    def delete_expiredBus(self):
+        current_date = timezone.now().date()
+        Scheduled_buses.objects.filter(Date__lt=current_date).delete()
+        Bus.objects.filter(Date__lt=current_date).delete()
