@@ -158,7 +158,19 @@
                                             <p class="form_head">
                                                 Bus No.
                                             </p>
-                                            <input type="number" class="form_input" name="ebus_no" placeholder="Bus number" value="{{ i.Bus_No }}">
+                                            <!-- <input type="number" class="form_input" name="ebus_no" placeholder="Bus number" value="{{ i.Bus_No }}"> -->
+                                            <select name="ebus_no" class="form_input">
+                                                <option value="MH12VM4800" {% if i.Bus_No == "MH12VM4800" %}selected{% endif %}>MH12VM4800</option>
+                                                <option value="MH12VM4801" {% if i.Bus_No == "MH12VM4801" %}selected{% endif %}>MH12VM4801</option>
+                                                <option value="MH12VM4802" {% if i.Bus_No == "MH12VM4802" %}selected{% endif %}>MH12VM4802</option>
+                                                <option value="MH12VM4803" {% if i.Bus_No == "MH12VM4803" %}selected{% endif %}>MH12VM4803</option>
+                                                <option value="MH12VM4804" {% if i.Bus_No == "MH12VM4804" %}selected{% endif %}>MH12VM4804</option>
+                                                <option value="MH12VM4805" {% if i.Bus_No == "MH12VM4805" %}selected{% endif %}>MH12VM4805</option>
+                                                <option value="MH12VM4806" {% if i.Bus_No == "MH12VM4806" %}selected{% endif %}>MH12VM4806</option>
+                                                <option value="MH12VM4807" {% if i.Bus_No == "MH12VM4807" %}selected{% endif %}>MH12VM4807</option>
+                                                <option value="MH12VM4808" {% if i.Bus_No == "MH12VM4808" %}selected{% endif %}>MH12VM4808</option>
+                                                <option value="MH12VM4809" {% if i.Bus_No == "MH12VM4809" %}selected{% endif %}>MH12VM4809</option>
+                                            </select>
                                             <div class="input-container">
                                                 <p class="form_head">
                                                     From

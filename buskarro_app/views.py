@@ -194,7 +194,7 @@ class Admin_ScheduledBuses(APIView):
             Bus_No = request.POST.get('hBus_no')#Database value 
             Date_str = request.POST.get('hdate')#Database value 
             if Bus_No and Date_str:
-                Date_obj = datetime.strptime(Date_str, "%b. %d, %Y")
+                Date_obj = datetime.strptime(Date_str, "%B %d, %Y")
                 Date = Date_obj.strftime("%Y-%m-%d")
                 if Date:
                     find_Bus = Scheduled_buses.objects.filter(Bus_No=Bus_No, Date=Date).first()
@@ -205,7 +205,7 @@ class Admin_ScheduledBuses(APIView):
                         find_Bus.Driver_name = request.POST.get('eDriver_name')
                         eDate_str = request.POST.get('eDate')
                         if eDate_str:
-                            eDate_obj = datetime.strptime(eDate_str, "%b. %d, %Y")
+                            eDate_obj = datetime.strptime(eDate_str, "%B %d, %Y")
                             find_Bus.Date = eDate_obj.strftime("%Y-%m-%d")
                         find_Bus.save()
             return redirect('Admin-Scheduled-Bus')
@@ -216,12 +216,13 @@ class Admin_ScheduledBuses(APIView):
             Bus_No = request.POST.get('Bus_No')
             Date_str = request.POST.get('Date')
             try:
-                Date_obj = datetime.strptime(Date_str, "%b. %d, %Y")
+                Date_obj = datetime.strptime(Date_str, "%B %d, %Y")
                 Date = Date_obj.strftime("%Y-%m-%d")
             except ValueError:
                 Date = None
 
             if Bus_No and Date:
+                print(Bus_No,Date)
                 find_bus = Scheduled_buses.objects.filter(Bus_No=Bus_No, Date=Date)
                 find_bus.delete()
             return redirect('Admin-Scheduled-Bus')
@@ -425,12 +426,13 @@ class User_panel(APIView):
         return self.get(request)
     
 class User_Booking(APIView):
-    def validate_data(self,seats,data_list,Adults_No,child_No,Bus_No,Date,From,To,Driver_name,Price,Time):
+    def validate_data(self,request,seats,data_list,Adults_No,child_No,Bus_No,Date,From,To,Driver_name,Price,Time):
         length = len(data_list)
         sum = int(Adults_No)+int(child_No)
         Calculate_child = int(child_No)*(int(Price)/2)
         Calculate_Adult = int(Adults_No)*int(Price)
         total_Price = Calculate_Adult+Calculate_child
+        print("******info*******",Adults_No,child_No)
         if sum == length:
             info = urlencode({
             "selected_seats": seats,
@@ -448,8 +450,25 @@ class User_Booking(APIView):
         })
             return redirect(f'/Confirm-Booking/?{info}')
         else:
-            seats = urlencode({'selected_seats':seats})
-            return redirect(f'/Continue-Booking/?{seats}')
+            seats = request.GET.get('selected_seats')
+            Bus_No = request.GET.get('Bus_No')
+            Date = request.GET.get('Date')
+            From = request.GET.get('F')
+            To = request.GET.get('T')
+            Driver_name = request.GET.get('Driver_name')
+            Price = request.GET.get('Price')
+            Time = request.GET.get('Time')
+            data = urlencode({
+                    'selected_seats':seats,
+                    'Bus_No':Bus_No,
+                    'Date':Date,
+                    'F':From,
+                    'T':To,
+                    'Driver_name':Driver_name,
+                    'Price':Price,
+                    'Time':Time,
+                    })
+            return redirect(f'/Continue-Booking/?{data}')
     def Value(self,request,token):
         tok = decode(token,secret_key)
         user_info = {
@@ -483,7 +502,8 @@ class User_Booking(APIView):
         Time = request.GET.get('Time')
         Adults_No = request.POST.get('Adults_No')
         child_No = request.POST.get('child_No')
-        return self.validate_data(seats,data_list,Adults_No,child_No,Bus_No,Date,From,To,Driver_name,Price,Time) 
+        print("*********data**************",seats,data_list,Adults_No,child_No,Bus_No,Date,From,To,Driver_name,Price,Time)
+        return self.validate_data(request,seats,data_list,Adults_No,child_No,Bus_No,Date,From,To,Driver_name,Price,Time) 
     
 class User_CBooking(APIView):
     def Value(self, request, token):
