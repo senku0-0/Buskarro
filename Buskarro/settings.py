@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-e1us3g5q+@o!^g6zzwmggbd7$jz2^bvaqt0w07@6=vhu@$v0do'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['Buskarro.onrender.com']
 
@@ -140,3 +140,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'senkueshigame83@gmail.com'
 EMAIL_HOST_PASSWORD = 'egfc gukr yrlc cnbr'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Tell Django where to store static files

@@ -1,0 +1,372 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    /* padding-top: 100px; */
+    background-color: var(--base-color);
+    /* padding-bottom: 900px; */
+    width: 100vw;
+    height: 100%;
+    overflow-x: hidden;
+    
+}
+
+p {
+    color: var(--text-color);
+}
+
+html {
+    width: 100vw;
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    transition: 0.5s ease;
+    font-family: "Kanit";
+}
+
+span {
+    transition: 0.01s ease;
+    color: var(--text-hover);
+}
+
+:root {
+    --base-color:#F5EFFF;
+    --base-variant:black;
+    --text-color: black;
+    --text-variant:white;
+    --text-hover:black;
+    --primary-color:#E5D9F2;
+    --secondary-color:#CDC1FF;
+    --accent-color:#A594F9;
+}
+
+.darkmode{
+    --base-color:#18122B;
+    --base-variant:rgb(255, 255, 255);
+    --text-color: rgb(255, 255, 255);
+    --text-variant:rgb(0, 0, 0);
+    --text-hover:white;
+    --primary-color:#635985;
+    --secondary-color:#393053;
+    --accent-color:#443C68;
+}
+
+.hero_title,
+.hero {
+    display: flex;
+    justify-content: center;
+    animation: fade 1s ease-in 1;
+}
+
+.title_text {
+    font: 500 60px "kanit";
+    animation: fade 1s ease-in 1;
+}
+
+.search_box_container {
+    scale: 1.2;
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    margin: 20px; 
+    /* background-color: white;  */
+    width:max-content;
+    padding: 0.2vh 0vh 0.2vh 5vh;
+    height: fit-content;
+    border-radius: 3px;
+    margin-bottom: 200px;
+}
+
+.f11 {
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    padding-left: 20px;
+    flex: 5;
+    display: flex;
+    background-color: white;
+}
+
+.interchange {
+    flex: 0.5;
+    height: 80px;
+}
+
+.inter {
+    padding: 0px 10px 0px 10px;
+    height: 80px;
+    width: 30px;
+    border: none;
+    background-color: white;
+    transition: 0.5s;
+    font: 400 20px "Kanit";
+    /* border: solid 1px black; */
+}
+
+.material-symbols-outlined {
+    scale: 1.2;
+}
+
+.inter:hover {
+    cursor: pointer;
+    color: var(--text-hover);
+    background-color: var(--primary-color);
+}
+
+.to_container {
+    padding-left: 5px;
+}
+
+.when_container {
+    border-left: solid 1px rgb(185, 185, 185);
+    padding-left: 15px;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+    color: transparent; 
+}
+
+input[type="date"]:not(.has-value)::before {
+    content: attr(placeholder); 
+    color: var(--text-color);
+    font-style: italic;
+    position: absolute; 
+    left: 10px;
+}
+
+
+input[type="date"].has-value::-webkit-datetime-edit {
+    color: black;
+}
+
+input[type="date"]:not(.has-value)::placeholder-shown {
+    color: var(--text-color);
+}
+
+body.darkmode input[type="date"]:not(.has-value)::before {
+    color: black;
+}
+
+.search_buses {
+    flex: auto;
+    width: fit-content;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.search_box_btn {
+    height: 100%;
+    width: 90%;
+    border: none;
+    padding: 5px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: var(--secondary-color);
+    transition: 0.5s;
+    font: 400 20px "Kanit";
+}
+
+.search_text {
+    color: black;
+    margin: 2px;
+    font: 400 16px "Kanit";
+    padding-left: 5px;
+}
+
+.search_box_btn:hover {
+    cursor: pointer;
+    color: var(--text-hover);
+    background-color: var(--primary-color);
+}
+
+.fas {
+    margin: 0px 9px;
+    transition: 0.01s ease;
+}
+
+.search_box {
+    font: 400 20px "Kanit";
+    padding: 5px; 
+    width: 90%; 
+    height: 40%;
+    min-width: 30%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    /* border: solid rgb(194, 194, 194) 1px; */
+}
+
+.search_box:hover {
+    cursor: pointer;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.sub_hero {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 200px;
+    animation: fade 1s ease-in 1;
+}
+
+.sub_hero_title {
+    display: flex;
+    justify-content: center;
+}
+
+.sbh_text {
+    font: 600 70px "Kanit";
+}
+
+@keyframes scrollleft {
+    to {
+        left:-450px
+    }
+}
+
+.feature_con {
+    justify-content: space-evenly;
+    position: relative;
+    width: 100%;
+    height: 370px;
+    margin:0px 100px 0px 0px;
+    margin-bottom: 100px;
+    overflow: hidden;
+    mask-image: linear-gradient(
+        to right,
+        rgba(0,0,0,0),
+        rgba(0,0,0,1) 20%,
+        rgba(0,0,0,1) 80%,
+        rgba(0,0,0,0)
+        );
+}
+
+.fea {
+    background-color: var(--base-variant);
+    height: max-content;
+    width: max-content;
+    padding: 20px;
+    border-radius: 10px;
+    border: none;
+    position: absolute;
+    left: calc(430px * 7);
+    animation-name: scrollleft;
+    animation-duration: 40s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.rev1{
+    animation-delay: calc(40s / 7 * ( 7 - 1 ) * -1);
+}
+.rev2{
+    animation-delay: calc(40s / 7 * ( 7 - 2 ) * -1);
+}
+.rev3{
+    animation-delay: calc(40s / 7 * ( 7 - 3 ) * -1);
+}
+.rev4{
+    animation-delay: calc(40s / 7 * ( 7 - 4 ) * -1);
+}
+.rev5{
+    animation-delay: calc(40s / 7 * ( 7 - 5 ) * -1);
+}
+.rev6{
+    animation-delay: calc(40s / 7 * ( 7 - 6 ) * -1);
+}
+.rev7{
+    animation-delay: calc(40s / 7 * ( 7 - 7 ) * -1);
+}
+
+.f_text {
+    font: 400 20px "Kanit";
+    color: var(--text-variant);   
+    width: 450px;
+}
+
+.f_title {
+    font: 600 30px "Kanit";
+    color: var(--text-variant);  
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--primary-color);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+    min-width: 150px;
+}
+
+.dropdown-menu .dropdown-item {
+    padding: 10px 15px;
+    font-size: 20px;
+    color: var(--base-variant);
+    text-decoration: none;
+    display: block;
+    border-radius: 5px;
+    transition: 0.3s ease;
+    margin: 0px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: var(--secondary-color);
+    color: var(--text-hover);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+body.darkmode .dropdown-menu {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+}
+
+body.darkmode .dropdown-menu .dropdown-item:hover {
+    background-color: var(--primary-color);
+    color: var(--text-hover);
+}
+
+.formm {
+    width: auto;
+    height: auto;
+}
+
+#Logout {
+    border:none; 
+    width: 150px;
+    height: auto;
+    background-color: var(--accent-color);
+    color: var(--text-hover);
+    cursor: pointer;
+    text-align: left;
+    font-size: 28px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+#Logout:hover {
+    background-color: var(--primary-color);
+    color: var(--text-hover);
+}
