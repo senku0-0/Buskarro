@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-    <link rel="stylesheet" href="/static/CSS/header.css">
-    <link rel="stylesheet" href="/static/CSS/registration.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/header.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/registration.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -88,8 +89,9 @@
         }, 3000); //3 sec
     </script>
 </body>
-<script src="/static/JS/showpass.js"></script>
-<script src="/static/JS/register.js"></script>
-<script src="/static/JS/darkmode.js"></script>
+{% load static %}
+<script src="{% static 'JS/showpass.js' %}"></script>
+<script src="{% static 'JS/register.js' %}"></script>
+<script src="{% static 'JS/darkmode.js' %}"></script>
 
 </html>

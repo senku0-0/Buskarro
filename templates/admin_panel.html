@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-    <link rel="stylesheet" href="/static/CSS/admin_panel.css">
-    <link rel="stylesheet" href="/static/CSS/header.css">
-    <link rel="stylesheet" href="/static/CSS/footer.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/admin_panel.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/header.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/footer.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet"
@@ -183,11 +184,12 @@
 
 
 </body>
-<script src="/static/JS/darkmode.js"></script>
-<script src="/static/JS/search.js"></script>
-<script src="/static/JS/date.js"></script>
-<script src="/static/JS/table.js"></script>
-<script src="/static/JS/as_bug_fix.js"></script>
-<script src="/static/JS/edit_search.js"></script>
+{% load static %}
+<script src="{% static 'JS/darkmode.js' %}"></script>
+<script src="{% static 'JS/search.js' %}"></script>
+<script src="{% static 'JS/date.js' %}"></script>
+<script src="{% static 'JS/table.js' %}"></script>
+<script src="{% static 'JS/as_bug_fix.js' %}"></script>
+<script src="{% static 'JS/edit_search.js' %}"></script>
 
 </html>
