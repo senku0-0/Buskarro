@@ -48,7 +48,6 @@ Follow these steps to set up the project locally:
    ```bash
    python manage.py runserver
    
-
  ## 🎮 How to Use
 
 ### **For Users:**
@@ -74,6 +73,3 @@ Follow these steps to set up the project locally:
 3. **Monitor Bookings**:
    - View and manage all bookings and user data efficiently.
 
----
-
-Feel free to copy and add this section directly into your `README.md` file. Let me know if there’s anything else you'd like to modify or add!
