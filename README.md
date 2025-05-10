@@ -39,14 +39,6 @@ Follow these steps to set up the project locally:
 2. Install Dependencies:
    ```bash
    pip install -r requirements.txt
-
-3. Install Dependencies:
-   ```bash
-    python manage.py migrate
-
-4. Install Dependencies:
-   ```bash
-   python manage.py runserver
    
  ## 🎮 How to Use
 
