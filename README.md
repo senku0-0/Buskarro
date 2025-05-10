@@ -35,3 +35,45 @@ Follow these steps to set up the project locally:
 1. Clone the repository:
    ```bash
    git clone https://github.com/senku0-0/Buskarro.git
+
+2. Install Dependencies:
+   ```bash
+   pip install -r requirements.txt
+
+3. Install Dependencies:
+   ```bash
+    python manage.py migrate
+
+4. Install Dependencies:
+   ```bash
+   python manage.py runserver
+   
+
+ ## 🎮 How to Use
+
+### **For Users:**
+1. **Sign Up or Log In**:
+   - Visit the deployed link or run the application locally.
+   - Create an account or log in to your existing account.
+2. **Search for Buses**:
+   - Enter your departure and destination locations.
+   - Select your preferred date to view available buses.
+3. **Book Tickets**:
+   - Choose your desired bus.
+   - Select seats and complete the booking process.
+4. **Receive Your Ticket**:
+   - After booking, a ticket will be generated.
+   - Check your email for a confirmation message and ticket details.
+
+### **For Admins:**
+1. **Log In to the Admin Dashboard**:
+   - Use your admin credentials to access the dashboard.
+   - Navigate to the admin portal (usually `/admin` in the URL for Django apps).
+2. **Manage Bus Schedules**:
+   - Add new buses, define routes, and update schedules.
+3. **Monitor Bookings**:
+   - View and manage all bookings and user data efficiently.
+
+---
+
+Feel free to copy and add this section directly into your `README.md` file. Let me know if there’s anything else you'd like to modify or add!
