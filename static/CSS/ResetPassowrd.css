@@ -1,0 +1,116 @@
+/* Layout Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f7f9fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #ffffff;
+  padding: 32px 28px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  animation: fadeSlideIn 0.4s ease;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border: 1px solid #d2d6dc;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #f9fafb;
+  transition: border 0.3s ease;
+}
+
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #005ecb;
+}
+
+button:disabled {
+  background-color: #c1c1c1;
+  cursor: not-allowed;
+}
+
+/* Feedback Text */
+#statusMessage {
+  text-align: center;
+  margin-top: 12px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #28a745;
+}
+
+/* Validation rules */
+.rules {
+  list-style: disc inside;
+  margin: 12px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.rules li {
+  margin-bottom: 6px;
+}
+
+/* Hide rules once passed */
+.rules li.hidden {
+  display: none;
+}
+
+/* Smooth appearance */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 460px) {
+  .container {
+    padding: 24px 20px;
+    max-width: 90%;
+  }
+}
