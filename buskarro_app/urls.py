@@ -23,4 +23,6 @@ urlpatterns = [
     path('Booking/', User_panel.as_view(), name='Booking'),
     path('Continue-Booking/', User_Booking.as_view(), name='Continue-Booking'),
     path('Confirm-Booking/', User_CBooking.as_view(), name='Confirm-Booking'),
+    path('Forgot-Password/', Forgot_Password.as_view(), name='Forgot-Password'),
+    path('Reset-Password/', Reset_Password.as_view(), name='Reset-Password'),
 ]

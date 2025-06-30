@@ -29,40 +29,8 @@ function startTimer(duration) {
   }, 1000);
 }
 
-forgotForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const email = document.getElementById('email').value.trim();
-
-  if (!email) {
-    message.innerText = 'Please enter your email.';
-    return;
-  }
-
-  message.innerText = 'OTP sent to ' + email;
-  show(otpForm);
-  hide(forgotForm.querySelector('button'));
-  startTimer(30);
-});
-
-otpForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const otp = document.getElementById('otp').value.trim();
-  message.innerText = otp === '123456'
-    ? 'OTP verified. Proceed to reset password.'
-    : 'Incorrect OTP. Try again.';
-});
-
-resendBtn.addEventListener('click', function() {
-  const email = document.getElementById('email').value.trim();
-  message.innerText = 'OTP resent to ' + email;
-  startTimer(30);
-});
-
-
 const otpInput = document.getElementById('otp');
 const verifyBtn = otpForm.querySelector('button');
-
-// Start with the button disabled
 verifyBtn.disabled = true;
 
 otpInput.addEventListener('input', () => {
@@ -70,7 +38,66 @@ otpInput.addEventListener('input', () => {
   verifyBtn.disabled = otp.length !== 6 || !/^\d{6}$/.test(otp);
 });
 
-
 timerText.classList.remove('pulse');
 void timerText.offsetWidth;
 timerText.classList.add('pulse');
+
+// Backend Validation
+forgotForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const csrfToken = document.getElementById("csrfmiddlewaretoken").value;
+
+  fetch('/Forgot-Password/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken,
+    },
+    body: JSON.stringify({ FormType: "RegisterEmail", email: email }),
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data.message);
+    message.innerText = data.message;
+    if (resendWrapper.classList.contains('hidden')) show(otpForm);
+    hide(forgotForm.querySelector('button'));
+    startTimer(30);
+  });
+});
+
+
+otpForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const csrfToken = document.getElementById("csrfmiddlewaretoken").value;
+  const email = document.getElementById('email').value.trim();
+  const otp = document.getElementById('otp').value.trim();
+
+  fetch('/Forgot-Password/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken,
+    },
+    body: JSON.stringify({ FormType: "ValidateOTP", email: email, otp: otp }),
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data.message);
+    message.innerText = data.message;
+    if (data.message === "OTP is valid") {
+      message.style.color = 'green';
+      setTimeout(() => {
+      window.location.href = '/Reset-Password/';
+      }, 1000);
+    } else {
+      message.style.color = 'red';
+    }
+  });
+});
+
+resendBtn.addEventListener('click', function () {
+  const email = document.getElementById('email').value.trim();
+  message.innerText = 'OTP resent to ' + email;
+  startTimer(30);
+});

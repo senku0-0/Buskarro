@@ -18,6 +18,8 @@ from django.core.mail import EmailMultiAlternatives
 from xhtml2pdf import pisa
 from Buskarro import settings
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.cache import cache
+import random
 # Create your views here.
 
 # registration api
@@ -120,7 +122,62 @@ class Log(APIView):
             res = redirect('Home') 
             res.set_cookie('Authorization', token, max_age=300, httponly=True,secure=True) 
             return res
-                   
+
+class Forgot_Password(APIView):
+    def get(self,request):
+        print("open")
+        return render(request,'ForgotPassword.html')
+    
+    def post(self,request):
+        data = json.loads(request.body)
+        if data.get("FormType") == "RegisterEmail":
+            email = data.get('email')
+            if Registration.objects.filter(Email=email).exists():
+                self.user = Registration.objects.get(Email=email)
+                send_email = EmailMultiAlternatives(
+                    subject='Reset Your Password',
+                    body=f'Hello {self.user.Username},\n\nTo reset your password, The OTP is: {self.OTP_Creating()}.',
+                    from_email=settings.EMAIL_HOST_USER,
+                    to=[email]
+                )
+                send_email.send()
+                return JsonResponse({'message': 'OTP sent successfully'})
+            else:
+                return JsonResponse({'message': 'Email not found'}, status=404)
+        elif data.get("FormType") == "ValidateOTP":
+            print("validate")
+            otp = data.get('otp')
+            email = data.get('email')
+            valid,msg = self.OTP_validating(otp, email)
+            if valid:
+                print('inside')
+                return JsonResponse({'message': msg}, status=200)
+            else:
+                return JsonResponse({'message': msg}, status=400)
+
+    def OTP_Creating(self):
+        otp = random.randint(100000, 999999)  # Generate a random 6-digit OTP
+        cache_key = f"{self.user.Email}"
+        cache.set(cache_key, otp, timeout=300)  # Store OTP in cache for 5 minutes
+        return otp
+    
+    def OTP_validating(self, otp, email):
+        cache_key = f"{email}"
+        cached_otp = cache.get(cache_key)
+        if cached_otp and str(cached_otp) == otp:
+            cache.delete(cache_key)  # Clear the OTP from cache after validation
+            return True, "OTP is valid"
+        else:
+            return False, "Invalid OTP"
+
+class Reset_Password(APIView):
+    def get(self,request):
+        return render(request,'ResetPassword.html')
+    
+    def post(self,request):
+        pass
+
+# Terms and Conditions, Policies, Blog, User Agreement and About Us.
 class Theory:
     def TNC(self,request):
         return render(request,'tnc.html')  
