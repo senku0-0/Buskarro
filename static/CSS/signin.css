@@ -1,10 +1,8 @@
-/* General Styles */
+/* ========= General Styles ========= */
 body {
     margin: 0;
     padding: 0;
-    /* padding-top: 100px; */
     background-color: var(--base-color);
-    /* padding-bottom: 900px; */
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
@@ -29,34 +27,35 @@ p {
     color: var(--base-variant);
 }
 
-
+/* ========= Color Variables ========= */
 :root {
-    --base-color:#F5EFFF;
-    --base-variant:black;
+    --base-color: #F5EFFF;
+    --base-variant: black;
     --text-color: black;
-    --text-variant:white;
-    --primary-color:#E5D9F2;
-    --secondary-color:#CDC1FF;
-    --accent-color:#A594F9;
+    --text-variant: white;
+    --primary-color: #E5D9F2;
+    --secondary-color: #CDC1FF;
+    --accent-color: #A594F9;
 }
 
-.darkmode{
-    --base-color:#18122B;
-    --base-variant:rgb(255, 255, 255);
+.darkmode {
+    --base-color: #18122B;
+    --base-variant: rgb(255, 255, 255);
     --text-color: rgb(255, 255, 255);
-    --text-variant:rgb(0, 0, 0);
-    --text-hover:white;
-    --primary-color:#635985;
-    --secondary-color:#393053;
-    --accent-color:#443C68;
+    --text-variant: rgb(0, 0, 0);
+    --text-hover: white;
+    --primary-color: #635985;
+    --secondary-color: #393053;
+    --accent-color: #443C68;
 }
 
+/* ========= Navbar ========= */
 .nav_bar {
     margin-bottom: 150px;
 }
-
+/* ========= Login Form ========= */
 .login_con {
-    display:flex;
+    display: flex;
     justify-content: center;
 }
 
@@ -103,7 +102,6 @@ p {
 .divider {
     margin: 20px 0;
     color: var(--base-variant);
-    /* position: relative; */
     font: 400 16px "Kanit";
     display: flex;
     justify-content: center;
@@ -139,4 +137,147 @@ p {
     z-index: 1000;
     display: none;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ─── CONSOLIDATED RESPONSIVE QUERIES ─── */
+
+/* ≤ 1024px (tablets & small desktops) */
+@media screen and (max-width: 1024px) {
+  .sub_container {
+    width: 40vw;
+  }
+}
+
+/* ≤ 768px (small tablets & large phones) */
+@media screen and (max-width: 768px) {
+  .nav_bar {
+    /* keep horizontal */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    margin-bottom: 100px;
+  }
+  .comp_name {
+    margin-bottom: 0;        /* your requested change */
+  }
+  .nav_buttons {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .sub_container {
+    width: 60vw;
+  }
+  .username,
+  .Password {
+    font-size: 18px;
+    height: 30px;
+  }
+  .submitbtn {
+    width: 100%;
+    font-size: 18px;
+    height: 34px;
+  }
+  .alert-box {
+    width: 85vw;
+    font-size: 14px;
+    padding: 10px;
+    height: auto;
+  }
+  .user,
+  .terms {
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+/* ≤ 480px (medium phones) */
+@media screen and (max-width: 480px) {
+  .nav_bar {
+    padding: 0 12px;          /* your requested change */
+    margin-bottom: 80px;
+  }
+  .nav_buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sub_container {
+    width: 90vw;
+  }
+  .username,
+  .Password {
+    font-size: 16px;
+    height: 28px;
+  }
+  .submitbtn {
+    font-size: 16px;
+    height: 32px;
+  }
+  .nav_buttons .Links,
+  .nav_buttons .sign_in_button,
+  .user,
+  .terms {
+    font-size: 15px;
+    text-align: center;
+  }
+  .alert-box {
+    width: 90vw;
+    font-size: 14px;
+    padding: 10px;
+    height: auto;
+  }
+}
+
+/* ≤ 375px (small phones) */
+@media screen and (max-width: 375px) {
+  .sub_container {
+    width: 95vw;
+  }
+  .username,
+  .Password {
+    font-size: 15px;
+    height: 26px;
+  }
+  .submitbtn {
+    font-size: 15px;
+    height: 30px;
+  }
+  .nav_buttons .Links,
+  .nav_buttons .sign_in_button,
+  .user,
+  .terms {
+    font-size: 14px;
+  }
+}
+
+/* ≤ 360px (extra small phones) */
+@media screen and (max-width: 360px) {
+  .nav_bar {
+    padding: 8px 10px;
+  }
+  .comp_name .company_name {
+    font-size: 1rem;
+  }
+  .nav_buttons .Links,
+  .nav_buttons .sign_in_button {
+    font-size: 13px;
+    padding: 4px 0;
+  }
+  .sub_container {
+    width: 100vw;
+    padding: 0 5px;
+  }
+  .username,
+  .Password {
+    font-size: 14px;
+    height: 24px;
+  }
+  .submitbtn {
+    font-size: 14px;
+    height: 28px;
+  }
+  .user,
+  .terms {
+    font-size: 13px;
+  }
 }
