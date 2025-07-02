@@ -29,29 +29,18 @@ function startTimer(duration) {
   }, 1000);
 }
 
-forgotForm.addEventListener('submit', async function (e) {
+forgotForm.addEventListener('submit', function(e) {
   e.preventDefault();
-
   const email = document.getElementById('email').value.trim();
-  const csrfToken = document.getElementById('csrfmiddlewaretoken').value;
-
-  try {
-    const response = await fetch('/Forgot-Password/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken
-      },
-      body: JSON.stringify({ FormType: 'RegisterEmail', email })
-    });
-
-    const data = await response.json();
-    console.log("Server says:", data.message);
-  } catch (err) {
-    console.error("Fetch failed:", err);
+  if (!email) {
+    message.innerText = 'Please enter your email.';
+    return;
   }
+  message.innerText = 'OTP sent to ' + email;
+  show(otpForm);
+  hide(forgotForm.querySelector('button'));
+  startTimer(30);
 });
-
 
 otpForm.addEventListener('submit', function(e) {
   e.preventDefault();
@@ -66,7 +55,6 @@ resendBtn.addEventListener('click', function() {
   message.innerText = 'OTP resent to ' + email;
   startTimer(30);
 });
-
 
 const otpInput = document.getElementById('otp');
 const verifyBtn = otpForm.querySelector('button');
@@ -84,3 +72,37 @@ void timerText.offsetWidth;
 timerText.classList.add('pulse');
 
 // Backend validation
+
+forgotForm.addEventListener('submit', () => {
+  const csrfToken = document.getElementById("csrfmiddlewaretoken").value;
+  const email_id = document.getElementById('email').value.trim();
+  const response = fetch('/Forgot-Password/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken,
+    },
+    body: JSON.stringify({ FormType:"RegisterEmail", email: email_id }),
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data.message);
+  });
+});
+
+otpForm.addEventListener('submit', () => {
+  const csrfToken = document.getElementById("csrfmiddlewaretoken").value;
+  const email_id = document.getElementById('email').value.trim();
+  const res = fetch('/Forgot-Password/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken,
+    },
+    body: JSON.stringify({ FormType:"ValidateOTP", email: email_id, otp: document.getElementById('otp').value }),
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data.message);
+  });
+});

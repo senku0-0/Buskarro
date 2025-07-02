@@ -45,8 +45,13 @@ timerText.classList.add('pulse');
 // Backend Validation
 forgotForm.addEventListener('submit', function(e) {
   e.preventDefault();
+
   const email = document.getElementById('email').value.trim();
   const csrfToken = document.getElementById("csrfmiddlewaretoken").value;
+  const sendBtn = forgotForm.querySelector('button');
+  
+  sendBtn.disabled = true; // Disable right away
+  sendBtn.innerText = 'Sending...'; // Optional visual cue
 
   fetch('/Forgot-Password/', {
     method: 'POST',
@@ -60,9 +65,16 @@ forgotForm.addEventListener('submit', function(e) {
   .then(data => {
     console.log(data.message);
     message.innerText = data.message;
+
     if (resendWrapper.classList.contains('hidden')) show(otpForm);
-    hide(forgotForm.querySelector('button'));
+    hide(sendBtn); // Optional: hide or disable the button
+
     startTimer(30);
+  })
+  .catch(err => {
+    message.innerText = "Something went wrong. Please try again.";
+    sendBtn.disabled = false;
+    sendBtn.innerText = 'Send OTP';
   });
 });
 
@@ -88,7 +100,7 @@ otpForm.addEventListener('submit', function(e) {
     if (data.message === "OTP is valid") {
       message.style.color = 'green';
       setTimeout(() => {
-      window.location.href = '/Reset-Password/';
+      window.location.href = '/Reset-Password/?email=' + encodeURIComponent(email);
       }, 1000);
     } else {
       message.style.color = 'red';

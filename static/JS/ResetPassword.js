@@ -49,3 +49,33 @@ document.getElementById('resetForm').addEventListener('submit', function (e) {
   statusMsg.innerText = 'Password changed successfully!';
   statusMsg.style.color = '#28a745';
 });
+
+// Backend
+const resetForm = document.getElementById('resetForm');
+
+resetForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const csrfToken = document.getElementById("csrfmiddlewaretoken").value;
+  console.log('Submitting new password...');
+  fetch('/Reset-Password/', {
+    method:'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken,
+    },
+    body: JSON.stringify({
+      newPassword: newPass.value.trim(),
+    }),
+  })
+    .then(res => res.json())
+    .then(data => 
+    {
+      if(data.message === "Password changed successfully") {
+        statusMsg.innerText = 'Password changed successfully!';
+        statusMsg.style.color = '#28a745';
+        setTimeout(() => {
+          window.location.href = '/Login/';
+        }, 1000);
+      }
+    });
+  });

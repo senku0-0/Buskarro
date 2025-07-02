@@ -1,8 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,JsonResponse
 from rest_framework.views import APIView
-from django.views.decorators.csrf import csrf_exempt 
-from django.utils.decorators import method_decorator
 # from rest_framework.decorators import api_view
 from .models import *
 from .TokenJWT import *
@@ -37,7 +35,7 @@ class Validate:
     def hash_passcode(self,Password):
         value = Password.encode('utf-8')
         hash_password = bcrypt.hashpw(value, bcrypt.gensalt(rounds=12))
-        print(hash_password)
+        # print(hash_password)
         return(hash_password)
     
     def Reg_Validating(self, Username, Email, Password, CPassword ,auth):
@@ -125,18 +123,17 @@ class Log(APIView):
 
 class Forgot_Password(APIView):
     def get(self,request):
-        print("open")
         return render(request,'ForgotPassword.html')
     
     def post(self,request):
-        data = json.loads(request.body)
+        data = request.data # or json.loads(request.body)
         if data.get("FormType") == "RegisterEmail":
             email = data.get('email')
             if Registration.objects.filter(Email=email).exists():
-                self.user = Registration.objects.get(Email=email)
+                user = Registration.objects.get(Email=email)
                 send_email = EmailMultiAlternatives(
                     subject='Reset Your Password',
-                    body=f'Hello {self.user.Username},\n\nTo reset your password, The OTP is: {self.OTP_Creating()}.',
+                    body=f'Hello {user.Username},\n\nTo reset your password, The OTP is: {self.OTP_Creating(user.Email)}.',
                     from_email=settings.EMAIL_HOST_USER,
                     to=[email]
                 )
@@ -145,19 +142,17 @@ class Forgot_Password(APIView):
             else:
                 return JsonResponse({'message': 'Email not found'}, status=404)
         elif data.get("FormType") == "ValidateOTP":
-            print("validate")
             otp = data.get('otp')
             email = data.get('email')
             valid,msg = self.OTP_validating(otp, email)
             if valid:
-                print('inside')
                 return JsonResponse({'message': msg}, status=200)
             else:
                 return JsonResponse({'message': msg}, status=400)
 
-    def OTP_Creating(self):
+    def OTP_Creating(self,email):
         otp = random.randint(100000, 999999)  # Generate a random 6-digit OTP
-        cache_key = f"{self.user.Email}"
+        cache_key = f"{email}"
         cache.set(cache_key, otp, timeout=300)  # Store OTP in cache for 5 minutes
         return otp
     
@@ -172,10 +167,22 @@ class Forgot_Password(APIView):
 
 class Reset_Password(APIView):
     def get(self,request):
+        email = request.GET.get('email')
+        request.session['reset_email'] = email  # Store email in session
+        print("Email for reset:", email)
         return render(request,'ResetPassword.html')
     
     def post(self,request):
-        pass
+        data = request.data  # built in DRF that parses the request body 
+        email = request.session.get('reset_email')  # Retrieve email from session
+        user = Registration.objects.get(Email=email)
+        value = data.get('newPassword').encode('utf-8')
+        print(value)
+        hash_password = bcrypt.hashpw(value, bcrypt.gensalt(rounds=12))
+        print(hash_password)
+        user.Password = hash_password
+        user.save()
+        return JsonResponse({'message': 'Password reset successfully'}, status=200)
 
 # Terms and Conditions, Policies, Blog, User Agreement and About Us.
 class Theory:
