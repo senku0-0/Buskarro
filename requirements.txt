@@ -9,3 +9,5 @@ gunicorn
 psycopg2-binary
 djangorestframework
 whitenoise
+bcrypt
+
