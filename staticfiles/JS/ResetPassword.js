@@ -56,6 +56,7 @@ const resetForm = document.getElementById('resetForm');
 resetForm.addEventListener('submit', function (e) {
   e.preventDefault();
   const csrfToken = document.getElementById("csrfmiddlewaretoken").value;
+  console.log('Submitting new password...');
   fetch('/Reset-Password/', {
     method:'POST',
     headers: {
@@ -63,13 +64,18 @@ resetForm.addEventListener('submit', function (e) {
       'X-CSRFToken': csrfToken,
     },
     body: JSON.stringify({
-      FormType: "ResetPassword",
       newPassword: newPass.value.trim(),
     }),
   })
     .then(res => res.json())
     .then(data => 
     {
-      console.log(data.message);
+      if(data.message === "Password changed successfully") {
+        statusMsg.innerText = 'Password changed successfully!';
+        statusMsg.style.color = '#28a745';
+        setTimeout(() => {
+          window.location.href = '/Login/';
+        }, 1000);
+      }
     });
   });

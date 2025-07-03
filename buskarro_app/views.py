@@ -127,28 +127,31 @@ class Forgot_Password(APIView):
     
     def post(self,request):
         data = request.data # or json.loads(request.body)
-        if data.get("FormType") == "RegisterEmail":
-            email = data.get('email')
-            if Registration.objects.filter(Email=email).exists():
-                user = Registration.objects.get(Email=email)
-                send_email = EmailMultiAlternatives(
-                    subject='Reset Your Password',
-                    body=f'Hello {user.Username},\n\nTo reset your password, The OTP is: {self.OTP_Creating(user.Email)}.',
-                    from_email=settings.EMAIL_HOST_USER,
-                    to=[email]
-                )
-                send_email.send()
-                return JsonResponse({'message': 'OTP sent successfully'})
-            else:
-                return JsonResponse({'message': 'Email not found'}, status=404)
-        elif data.get("FormType") == "ValidateOTP":
-            otp = data.get('otp')
-            email = data.get('email')
-            valid,msg = self.OTP_validating(otp, email)
-            if valid:
-                return JsonResponse({'message': msg}, status=200)
-            else:
-                return JsonResponse({'message': msg}, status=400)
+        try:
+            if data.get("FormType") == "RegisterEmail":
+                email = data.get('email')
+                if Registration.objects.filter(Email=email).exists():
+                    user = Registration.objects.get(Email=email)
+                    send_email = EmailMultiAlternatives(
+                        subject='Reset Your Password',
+                        body=f'Hello {user.Username},\n\nTo reset your password, The OTP is: {self.OTP_Creating(user.Email)}.',
+                        from_email=settings.EMAIL_HOST_USER,
+                        to=[email]
+                    )
+                    send_email.send()
+                    return JsonResponse({'message': 'OTP sent successfully'})
+                else:
+                    return JsonResponse({'message': 'Email not found'}, status=404)
+            elif data.get("FormType") == "ValidateOTP":
+                otp = data.get('otp')
+                email = data.get('email')
+                valid,msg = self.OTP_validating(otp, email)
+                if valid:
+                    return JsonResponse({'message': msg}, status=200)
+                else:
+                    return JsonResponse({'message': msg}, status=400)
+        except Exception as e:
+            print("Error in sending email:", e)
 
     def OTP_Creating(self,email):
         otp = random.randint(100000, 999999)  # Generate a random 6-digit OTP
