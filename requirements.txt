@@ -3,3 +3,9 @@ PyJWT==2.10.1
 PyJWT==2.10.1
 python_bcrypt==0.3.2
 xhtml2pdf==0.2.16
+
+# Add these manually for deployment
+gunicorn
+psycopg2-binary
+djangorestframework
+whitenoise
