@@ -143,3 +143,13 @@ EMAIL_HOST_USER = 'senkueshigame83@gmail.com'
 EMAIL_HOST_PASSWORD = 'egfc gukr yrlc cnbr'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Tell Django where to store static files
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
