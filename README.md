@@ -1,6 +1,6 @@
 # **Buskarro: Bus Reservation System**
 
-Buskarro is a Bus Reservation System developed with Django (backend) and HTML, CSS, JavaScript (frontend). This application streamlines the booking process by offering a user-friendly interface for customers to book bus tickets, generate tickets, and receive email notifications. Administrators can schedule buses, view schedules, and manage the system efficiently.
+Buskarro is a Bus Reservation System developed with Django (backend) and React.js (frontend). This application streamlines the booking process by offering a user-friendly interface for customers to book bus tickets, generate tickets, and receive email notifications. Administrators can schedule buses, view schedules, and manage the system efficiently.
 
 ## **Live Demo**
 [Access the Buskarro System Here](https://buskarro.onrender.com/) 
@@ -21,10 +21,28 @@ Buskarro is a Bus Reservation System developed with Django (backend) and HTML, C
 ---
 
 ## **Technologies Used**
-- **Backend:** Django
-- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Django 5.1.3
+- **Frontend:** React.js 18.2.0 with React Router
 - **Database:** SQLite (or any other database supported by Django)
 - **Email Integration:** To notify users of bookings.
+- **Build Tools:** Webpack 5, Babel
+
+---
+
+## **React Frontend**
+
+The application now features a modern React.js frontend! 
+
+### Key Features:
+- Component-based architecture
+- Client-side routing with React Router
+- Responsive design
+- Modern UI/UX with the original Buskarro styling
+
+### Access the React App:
+Navigate to `/react/` to use the React-based interface.
+
+For detailed React documentation, see [REACT_README.md](REACT_README.md)
 
 ---
 
@@ -35,12 +53,39 @@ Follow these steps to set up the project locally:
 1. Clone the repository:
    ```bash
    git clone https://github.com/senku0-0/Buskarro.git
+   cd Buskarro
+   ```
 
-2. Install Dependencies:
+2. Install Python Dependencies:
    ```bash
    pip install -r requirements.txt
-   
- ## 🎮 How to Use
+   ```
+
+3. Install Node.js Dependencies (for React):
+   ```bash
+   npm install
+   ```
+
+4. Build the React Frontend:
+   ```bash
+   npm run build
+   ```
+
+5. Run Django Migrations:
+   ```bash
+   python manage.py migrate
+   ```
+
+6. Start the Development Server:
+   ```bash
+   python manage.py runserver
+   ```
+
+7. Access the application:
+   - Traditional UI: `http://localhost:8000/`
+   - React UI: `http://localhost:8000/react/`
+
+--- 🎮 How to Use
 
 ### **For Users:**
 1. **Sign Up or Log In**:
