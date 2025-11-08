@@ -692,3 +692,8 @@ class Contact_Us(APIView):
         Contact.objects.create(Email=email,Message=message,Date=Date)
         return render(request,'contact.html',{'msg':'Thank you for contacting us','m1':True})
 
+# React App View
+class ReactAppView(APIView):
+    def get(self, request):
+        return render(request, 'react_index.html')
+

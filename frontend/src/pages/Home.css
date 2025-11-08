@@ -1,0 +1,272 @@
+:root {
+    --base-color:#F5EFFF;
+    --base-variant:black;
+    --text-color: black;
+    --text-variant:white;
+    --text-hover:black;
+    --primary-color:#E5D9F2;
+    --secondary-color:#CDC1FF;
+    --accent-color:#A594F9;
+}
+
+.darkmode{
+    --base-color:#18122B;
+    --base-variant:rgb(255, 255, 255);
+    --text-color: rgb(255, 255, 255);
+    --text-variant:rgb(0, 0, 0);
+    --text-hover:white;
+    --primary-color:#635985;
+    --secondary-color:#393053;
+    --accent-color:#443C68;
+}
+
+.home-page {
+    background-color: var(--base-color);
+    min-height: 100vh;
+}
+
+.hero_title,
+.hero {
+    display: flex;
+    justify-content: center;
+    animation: fade 1s ease-in 1;
+}
+
+.title_text {
+    font: 500 60px "kanit";
+    animation: fade 1s ease-in 1;
+    color: var(--text-color);
+}
+
+.search_box_container {
+    scale: 1.2;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    width: max-content;
+    padding: 0.2vh 0vh 0.2vh 5vh;
+    height: fit-content;
+    border-radius: 3px;
+    margin-bottom: 200px;
+}
+
+.f11 {
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    padding-left: 20px;
+    flex: 5;
+    display: flex;
+    background-color: white;
+    position: relative;
+}
+
+.from_container,
+.to_container,
+.when_container {
+    padding: 10px;
+    position: relative;
+}
+
+.interchange {
+    flex: 0.5;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inter-btn {
+    padding: 10px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    background-color: white;
+    transition: 0.5s;
+    font: 400 20px "Kanit";
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.inter-btn:hover {
+    background-color: var(--primary-color);
+}
+
+.when_container {
+    border-left: solid 1px rgb(185, 185, 185);
+    padding-left: 15px;
+}
+
+.search_buses {
+    flex: auto;
+    width: fit-content;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.search_box_btn {
+    height: 100%;
+    width: 90%;
+    border: none;
+    padding: 5px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: var(--secondary-color);
+    transition: 0.5s;
+    font: 400 20px "Kanit";
+    cursor: pointer;
+}
+
+.search_text {
+    color: black;
+    margin: 2px;
+    font: 400 16px "Kanit";
+    padding-left: 5px;
+}
+
+.search_box_btn:hover {
+    background-color: var(--primary-color);
+}
+
+.search_box {
+    font: 400 20px "Kanit";
+    padding: 5px;
+    width: 90%;
+    height: 40%;
+    min-width: 30%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+.search_box:hover {
+    cursor: pointer;
+}
+
+.results {
+    position: absolute;
+    height: auto;
+    max-height: 200px;
+    width: 10.5vw;
+    overflow-y: auto;
+    border-radius: 11px;
+    margin-top: 5px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.results div {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+}
+
+.results div:hover {
+    background: #f0f0f0;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.sub_hero {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 200px;
+    animation: fade 1s ease-in 1;
+}
+
+.sub_hero_title {
+    display: flex;
+    justify-content: center;
+}
+
+.sbh_text {
+    font: 600 70px "Kanit";
+    color: var(--text-color);
+}
+
+@keyframes scrollleft {
+    to {
+        left:-450px
+    }
+}
+
+.feature_con {
+    justify-content: space-evenly;
+    position: relative;
+    width: 100%;
+    height: 370px;
+    margin: 0px 100px 0px 0px;
+    margin-bottom: 100px;
+    overflow: hidden;
+    mask-image: linear-gradient(
+        to right,
+        rgba(0,0,0,0),
+        rgba(0,0,0,1) 20%,
+        rgba(0,0,0,1) 80%,
+        rgba(0,0,0,0)
+    );
+}
+
+.fea {
+    background-color: var(--base-variant);
+    height: max-content;
+    width: max-content;
+    padding: 20px;
+    border-radius: 10px;
+    border: none;
+    position: absolute;
+    left: calc(430px * 7);
+    animation-name: scrollleft;
+    animation-duration: 40s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.rev1{ animation-delay: calc(40s / 7 * ( 7 - 1 ) * -1); }
+.rev2{ animation-delay: calc(40s / 7 * ( 7 - 2 ) * -1); }
+.rev3{ animation-delay: calc(40s / 7 * ( 7 - 3 ) * -1); }
+.rev4{ animation-delay: calc(40s / 7 * ( 7 - 4 ) * -1); }
+.rev5{ animation-delay: calc(40s / 7 * ( 7 - 5 ) * -1); }
+.rev6{ animation-delay: calc(40s / 7 * ( 7 - 6 ) * -1); }
+.rev7{ animation-delay: calc(40s / 7 * ( 7 - 7 ) * -1); }
+
+.f_text {
+    font: 400 20px "Kanit";
+    color: var(--text-variant);
+    width: 450px;
+}
+
+.f_title {
+    font: 600 30px "Kanit";
+    color: var(--text-variant);
+}
+
+@media screen and (max-width: 768px) {
+    .title_text {
+        font-size: 40px;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .search_box_container {
+        scale: 1;
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .f11 {
+        flex-direction: column;
+    }
+
+    .results {
+        width: 80%;
+    }
+}

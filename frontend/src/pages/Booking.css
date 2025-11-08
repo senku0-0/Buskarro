@@ -1,0 +1,43 @@
+.booking-page {
+    background-color: var(--base-color);
+    min-height: 100vh;
+}
+
+.booking-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.booking-container h2 {
+    font-family: "Kanit";
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-info {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-info p {
+    font-family: "Kanit";
+    margin: 10px 0;
+    color: var(--text-color);
+}
+
+.bus-list {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bus-list p {
+    font-family: "Kanit";
+    color: var(--text-color);
+}

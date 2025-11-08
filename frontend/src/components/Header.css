@@ -1,0 +1,138 @@
+:root {
+    --base-color:#F5EFFF;
+    --base-variant:black;
+    --text-color: black;
+    --text-variant:white;
+    --primary-color:#E5D9F2;
+    --secondary-color:#CDC1FF;
+    --accent-color:#A594F9;
+}
+
+.darkmode{
+    --base-color:#18122B;
+    --base-variant:rgb(255, 255, 255);
+    --text-color: rgb(255, 255, 255);
+    --text-variant:rgb(0, 0, 0);
+    --text-hover:white;
+    --primary-color:#635985;
+    --secondary-color:#393053;
+    --accent-color:#443C68;
+}
+
+* {
+    transition: 0.5s ease;
+}
+
+.nav_bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 20px;
+    height: 90px;
+    z-index: 100;
+    background-color: var(--accent-color);
+    margin-bottom: 50px;
+}
+
+.comp_name {
+    flex: 2;
+    padding: 20px 0px;
+}
+
+.company_name {
+    color: var(--base-variant);
+    background-color: var(--accent-color);
+    text-align: left;
+    font-size: 5vh;
+    margin: 0;
+    font-family: "Kanit";
+    font-weight: 500;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.nav_buttons {
+    flex: 0.5;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.search_button {
+    font-size: 1.3vw;
+    font-family: "Kanit";
+    margin: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    color: var(--base-variant);
+}
+
+.Links {
+    font-family: "kanit";
+    font-size: 1.4vw;
+    font-weight: 400;
+    margin: 10px 0px 10px 0px;
+    text-decoration: none;
+    color: var(--base-variant);
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-trigger {
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    min-width: 150px;
+    z-index: 1000;
+}
+
+.dropdown-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    font-family: "Kanit";
+    color: var(--text-color);
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+@media screen and (max-width: 600px) {
+    .nav_bar {
+        flex-direction: column;
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .company_name {
+        font-size: 9vw;
+    }
+
+    .nav_buttons {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search_button,
+    .Links {
+        font-size: 5vw;
+    }
+}

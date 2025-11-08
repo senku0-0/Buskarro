@@ -1,0 +1,89 @@
+.footer {
+    height: auto;
+    width: auto;
+    background-color: var(--accent-color);
+    padding: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.footer_company_name {
+    flex: 2;
+    height: auto;
+}
+
+.footer_company_name_text {
+    margin: 0px;
+    font-family: "Kanit";
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 80px;
+    margin-bottom: 80px;
+}
+
+.footer_details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex: 1.5;
+}
+
+.footer_company_topic,
+.footer_topic {
+    font-family: "kanit";
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.links {
+    text-decoration: none;
+    font-family: "kanit";
+    font-size: 20px;
+    font-weight: 400;
+    margin: 10px 0px 10px 0px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+@media screen and (max-width: 600px) {
+    .footer {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .footer_company_name_text {
+        font-size: 60px;
+    }
+
+    .footer_details {
+        justify-content: space-between;
+        width: 80%;
+    }
+
+    .footer_company_topic,
+    .footer_topic {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width:600px) and (max-width:1024px) {
+    .footer_company_name {
+        flex: 0.7;
+    }
+
+    .footer_company_name_text {
+        font-size: 55px;
+    }
+
+    .footer_details {
+        flex: 1;
+    }
+}

@@ -5,6 +5,7 @@ theory = Theory()
 logging_out = Logout()
 dele = Admin_ScheduledBuses()
 urlpatterns = [
+    path('react/', ReactAppView.as_view(), name='React-App'),
     path('Home/',Index.as_view(),name='Home'),
     path('Registration/',User_Reg.as_view(),name='Registration'),
     path('',Log.as_view(),name='Login'),
