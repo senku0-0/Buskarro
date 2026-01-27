@@ -1,0 +1,5 @@
+busenv/
+/Buskarro/__pycache__
+buskarro_app/__pycache__
+buskarro_app/migrations
+staticfiles/
