@@ -20,6 +20,13 @@ from django.core.cache import cache
 import random
 # Create your views here.
 
+import logging 
+
+log = logging.getLogger()
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.DEBUG)
+log.addHandler(console_handler)
+
 # registration api
 
 class Validate:
@@ -104,22 +111,28 @@ class Log(APIView):
         return verify(request,m1,msg,secret_key)
 
     def post(self,request):
-        Username = request.POST.get('Username')
-        login_Password = request.POST.get('Password')
-        user = Registration.objects.filter(Username = Username).first()
-        valid,msg = Validate.Log_validate(Username,login_Password)
-        if valid:
-            return render(request,'signin.html',{'msg':msg,'m':True})
-        res = HttpResponse() 
-        token = create_JWT(Username, user.Email, user.auth,secret_key) 
-        if msg == 'Welcome Admin':
-            res = redirect('Admin-Dashboard') 
-            res.set_cookie('Authorization', token, max_age=300, httponly=True,secure=True) 
-            return res
-        elif msg == 'Welcome User':
-            res = redirect('Home') 
-            res.set_cookie('Authorization', token, max_age=300, httponly=True,secure=True) 
-            return res
+        try:
+            Username = request.POST.get('Username')
+            login_Password = request.POST.get('Password')
+            log.info(f"Login attempt for user: {Username} and password: {login_Password}")
+            user = Registration.objects.filter(Username = Username).first()
+            log. info(f"Fetched user from database: {user}")    
+            valid,msg = Validate.Log_validate(Username,login_Password)
+            log.info(f"Validation result - valid: {valid}, msg: {msg}")
+            if valid:
+                return render(request,'signin.html',{'msg':msg,'m':True})
+            res = HttpResponse() 
+            token = create_JWT(Username, user.Email, user.auth,secret_key) 
+            if msg == 'Welcome Admin':
+                res = redirect('Admin-Dashboard') 
+                res.set_cookie('Authorization', token, max_age=300, httponly=True,secure=True) 
+                return res
+            elif msg == 'Welcome User':
+                res = redirect('Home') 
+                res.set_cookie('Authorization', token, max_age=300, httponly=True,secure=True) 
+                return res
+        except Exception as e:
+            log.error(f"Error during login process: {e}")
 
 class Forgot_Password(APIView):
     def get(self,request):
