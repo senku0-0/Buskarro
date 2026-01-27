@@ -69,6 +69,7 @@ class Validate:
     def Log_validate(Username, login_Password):
         user = Registration.objects.filter(Username = Username).first()
         if user:
+            log.info(f"User found Password {Validate.check_password(login_Password,user.Password)}")
             if Validate.check_password(login_Password,user.Password):
                 if user.auth == 'User':
                     return False,'Welcome User'
